@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,19 +13,26 @@ namespace ShopCaddy.Controllers
 {
     public class ProductsController : Controller
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products
-                                       .Include(p => p.ProductType)
-                                        .ToListAsync());
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext =  _context.Products
+                                       .Where(p => p.ApplicationUser.Id == user.Id)
+                                       .Include(p => p.ProductType);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -34,8 +42,9 @@ namespace ShopCaddy.Controllers
             {
                 return NotFound();
             }
-
+            var user = await GetCurrentUserAsync();
             var product = await _context.Products
+                .Where(p=> p.ApplicationUser.Id == user.Id)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -56,10 +65,12 @@ namespace ShopCaddy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductTypeId,Name,Price,Image,Season,Quantity,SerialNumber")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,ProductTypeId,Name,Price,Image,Season,Quantity,SerialNumber,ApplicationUserId")] Product product)
         {
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                product.ApplicationUserId = user.Id;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -16,6 +16,7 @@ namespace ShopCaddy.Models
         public PurchaseOrder PurchaseOrder { get; set; }
         public List<Product> Products { get; set; }
         public Product Product { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

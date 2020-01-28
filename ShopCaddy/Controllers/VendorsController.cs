@@ -66,6 +66,8 @@ namespace ShopCaddy.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                vendor.ApplicationUserId = user.Id;
                 _context.Add(vendor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

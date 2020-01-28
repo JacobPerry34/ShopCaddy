@@ -17,6 +17,7 @@ namespace ShopCaddy.Models
         public int Quantity { get; set; }
         [Display(Name = "Serial Number")]
         public int SerialNumber { get; set; }
+        public string ApplicationUserId { get; set; }
         public ProductType ProductType { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 

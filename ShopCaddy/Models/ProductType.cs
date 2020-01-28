@@ -12,5 +12,6 @@ namespace ShopCaddy.Models
         public string ApplicationUserId { get; set; }
         public string Image { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+
     }
 }

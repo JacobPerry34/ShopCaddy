@@ -14,16 +14,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseOrderId" class="control-label"></label>
-                <select asp-for="PurchaseOrderId" class ="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
+                <select asp-for="PurchaseOrderId" class="form-control" asp-items="ViewBag.PurchaseOrderId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="QuantityOrdered" class="control-label"></label>
                 <input asp-for="QuantityOrdered" class="form-control" />
                 <span asp-validation-for="QuantityOrdered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationUserId" class="control-label"></label>
+                <input asp-for="ApplicationUserId" class="form-control" />
+                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

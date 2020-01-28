@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,17 +13,25 @@ namespace ShopCaddy.Controllers
 {
     public class ProductTypesController : Controller
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public ProductTypesController(ApplicationDbContext context)
+        public ProductTypesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductTypes.ToListAsync());
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.ProductTypes
+                                       .Where(p => p.ApplicationUser.Id == user.Id);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: ProductTypes/Details/5
@@ -58,6 +67,8 @@ namespace ShopCaddy.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                productType.ApplicationUserId = user.Id;
                 _context.Add(productType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
