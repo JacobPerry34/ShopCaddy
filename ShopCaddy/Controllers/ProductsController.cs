@@ -25,12 +25,14 @@ namespace ShopCaddy.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromRoute] int Id)
         {
             var user = await GetCurrentUserAsync();
 
             var applicationDbContext =  _context.Products
+
                                        .Where(p => p.ApplicationUser.Id == user.Id)
+                                       .Where(p => p.ProductTypeId == Id)
                                        .Include(p => p.ProductType);
             return View(await applicationDbContext.ToListAsync());
         }
