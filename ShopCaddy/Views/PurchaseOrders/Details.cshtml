@@ -10,32 +10,78 @@
     <h4>PurchaseOrder</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Received)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Received)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateReceived)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateReceived)
-        </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Received)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Received)
+            </dd>*@
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.DateReceived)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.DateReceived)
+            </dd>*@
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Vendor)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vendor.Contact)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vendor.PhoneNumber)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vendor.Email)
         </dd>
     </dl>
+    
 </div>
+
+    <table class=" table table-striped">
+        <thead>
+            <tr>
+                <th class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Product.Image)
+                    </th>
+                 <th class="col-sm-2">
+                     @Html.DisplayNameFor(model => model.Product.Name)
+                 </th>
+                <th class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Product.ProductType)
+                </th>
+                <th class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Product.Price)
+                </th>
+                <th class="col-sm-2">
+                    Delete
+                </th>
+                </tr>
+        </thead>
+        <tbody>
+            @foreach (PurchaseOrderProduct purchaseOrderProduct in Model.PurchaseOrderProducts)
+            {
+
+            <tr>
+                @*<th scope="row"></th>*@
+                <td class="col-sm-8"><img src="@Html.DisplayFor(model => purchaseOrderProduct.Product.Image)" class="h-25 w-25" /></td>
+                <td class="col-sm-8">@Html.DisplayFor(model => purchaseOrderProduct.Product.Name)</td>
+                <td class="col-sm-8">@Html.DisplayFor(model => purchaseOrderProduct.Product.ProductType.Name)</td>
+                <td class="col-sm-8">@Html.DisplayFor(model => purchaseOrderProduct.Product.Price)</td>
+                <td class="col-sm-8"><a asp-controller="ProductOrderProduct" asp-action="Delete"><button class="alert-danger">X</button></a></td>
+                
+            </tr>
+
+            }
+        </tbody>
+    </table>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

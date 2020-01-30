@@ -56,8 +56,8 @@ namespace ShopCaddy.Controllers
         // GET: PurchaseOrderProducts/Create
         public IActionResult Create()
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
-            ViewData["PurchaseOrderId"] = new SelectList(_context.PurchaseOrders, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            ViewData["PurchaseOrderId"] = new SelectList(_context.PurchaseOrders, "Id", "Name");
             return View();
         }
 

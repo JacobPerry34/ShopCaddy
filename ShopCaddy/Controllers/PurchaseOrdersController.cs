@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopCaddy.Data;
 using ShopCaddy.Models;
+using ShopCaddy.Models.ViewModels;
 
 namespace ShopCaddy.Controllers
 {
@@ -30,28 +31,54 @@ namespace ShopCaddy.Controllers
             var user = await GetCurrentUserAsync();
 
             var applicationDbContext = _context.PurchaseOrders
-                                       .Where(p => p.ApplicationUser.Id == user.Id);
+                                       .Where(p => p.ApplicationUser.Id == user.Id)
+                                       .Include(p => p.PurchaseOrderProduct)
+                                       .Include(p => p.Vendor);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: PurchaseOrders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            //var Model = _context.PurchaseOrders.Where(po => po.Id == id).FirstOrDefault();
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //DetailsPurchaseOrderViewModel vm = new DetailsPurchaseOrderViewModel()
+            //{
+            //    PurchaseOrderProduct = Model.PurchaseOrderProduct,
+            //    Vendor = Model.Vendor,
+            //    PurchaseOrderProducts = _context.PurchaseOrderProducts.Select(pop => new SelectListItem
+            //    {
+            //        Value = pop.Id.ToString(),
+            //        Text = pop.Product.Name
+            //    })
+
+            //}
+
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var purchaseOrder = await _context.PurchaseOrders
+            var purchaseOrders = await _context.PurchaseOrders
+                
+                .Include(p => p.PurchaseOrderProducts)
+                .ThenInclude(op =>op.Product)
+                .ThenInclude(p =>p.ProductType)
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (purchaseOrder == null)
+            if (purchaseOrders == null)
             {
                 return NotFound();
             }
 
-            return View(purchaseOrder);
-        }
+            return View(purchaseOrders);
+        
+    }
 
         // GET: PurchaseOrders/Create
         public IActionResult Create()

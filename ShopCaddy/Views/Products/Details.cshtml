@@ -48,7 +48,7 @@
     @if(Model.Quantity < 5)
     {
         <p>The Number of this Product is running Low. Would you like to make a Purchase Order?</p>
-        <a asp-controller="PurchaseOrders" asp-action="Create"><button class="alert-danger">Create A Purchase Order</button></a>
+        <a asp-controller="PurchaseOrderProducts" asp-action="Create"><button class="alert-danger">Create A Purchase Order</button></a>
     }
 </div>
 <div>
