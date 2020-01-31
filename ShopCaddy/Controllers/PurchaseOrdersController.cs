@@ -127,24 +127,21 @@ namespace ShopCaddy.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,VendorId,Received,DateReceived")] PurchaseOrder purchaseOrder)
+        
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != purchaseOrder.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(purchaseOrder);
+                    var purchaseOrders = await _context.PurchaseOrders.FirstOrDefaultAsync(m => m.Id == id);
+                    purchaseOrders.Received = true;
+                    _context.Update(purchaseOrders);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PurchaseOrderExists(purchaseOrder.Id))
+                    if (!PurchaseOrderExists(id))
                     {
                         return NotFound();
                     }
@@ -155,8 +152,7 @@ namespace ShopCaddy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id", purchaseOrder.VendorId);
-            return View(purchaseOrder);
+            return View(id);
         }
 
         // GET: PurchaseOrders/Delete/5

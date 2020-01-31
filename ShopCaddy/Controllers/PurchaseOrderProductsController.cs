@@ -54,11 +54,12 @@ namespace ShopCaddy.Controllers
         }
 
         // GET: PurchaseOrderProducts/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync(int id)
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            PurchaseOrderProduct purchaseOrderProduct = await _context.PurchaseOrderProducts.Include(pop=> pop.Product)
+                .FirstOrDefaultAsync(pop => pop.Product.Id == id);
             ViewData["PurchaseOrderId"] = new SelectList(_context.PurchaseOrders, "Id", "Name");
-            return View();
+            return View(purchaseOrderProduct);
         }
 
         // POST: PurchaseOrderProducts/Create
@@ -72,6 +73,9 @@ namespace ShopCaddy.Controllers
             {
                 var user = await GetCurrentUserAsync();
                 purchaseOrderProduct.ApplicationUserId = user.Id;
+                purchaseOrderProduct.ProductId = purchaseOrderProduct.Id;
+                purchaseOrderProduct.Id = 0;
+                
                 _context.Add(purchaseOrderProduct);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

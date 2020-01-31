@@ -9,11 +9,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-@{ 
-    var model = new PurchaseOrder();
-}
-@if (model.DateReceived == null)
-{
+
+<h5>Outstanding Purchase Orders</h5>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,9 +20,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Received)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateReceived)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Vendor)
@@ -35,15 +30,15 @@
     <tbody>
 @foreach (var item in Model)
 {
+    @if (item.Received == false)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Received)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateReceived)
+            <td ><button class="received-Button alert-danger" id="@item.Id" >
+             @Html.DisplayFor(modelItem => item.Received)
+                </button>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vendor.Contact)
@@ -53,21 +48,18 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
-        </tr>
+        </tr>}
 }
     </tbody>
 </table>
-}
-else
-{
+
+
+    <h5>Received Purchase Orders</h5>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Received)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateReceived)
@@ -81,12 +73,11 @@ else
     <tbody>
         @foreach (var item in Model)
         {
+            if (item.Received == true)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Received)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateReceived)
@@ -100,7 +91,7 @@ else
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
+            }
         }
     </tbody>
 </table>
-}

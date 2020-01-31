@@ -14,7 +14,6 @@ namespace ShopCaddy.Models
         [Display(Name = "Quantity Ordered")]
         public int QuantityOrdered { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
-        public List<Product> Products { get; set; }
         public Product Product { get; set; }
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
