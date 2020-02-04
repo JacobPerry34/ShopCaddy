@@ -22,6 +22,8 @@ namespace ShopCaddy.Controllers
             public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
             public Vendor Vendor { get; set; }
             public PurchaseOrder PurchaseOrder { get; set; }
+            public double Price { get; set; }
+          public List<POPViewModel> groupedProducts { get; set; }
         }
 
         private readonly UserManager<ApplicationUser> _userManager;
@@ -73,30 +75,31 @@ namespace ShopCaddy.Controllers
                 return NotFound();
             }
 
-
-            var purchaseOrders = await _context.PurchaseOrders
+            POPViewModel vm = new POPViewModel();
+             vm.PurchaseOrder = await _context.PurchaseOrders
                 .Include(p => p.PurchaseOrderProducts)
                 .ThenInclude(op => op.Product)
                 .ThenInclude(p => p.ProductType)
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            var groupedProducts = purchaseOrders.PurchaseOrderProducts.GroupBy(p => p.Product.Name)
-            .Select(pop => new POPViewModel        
+             vm.groupedProducts = vm.PurchaseOrder.PurchaseOrderProducts.GroupBy(p => p.Product.Name)
+            .Select(pop => new POPViewModel
             {
-                 Product = pop.ToList()[0].Product,
-                 Quantity = pop.Count()
-             });
+                Product = pop.ToList()[0].Product,
+                Quantity = pop.Count(),
+                Price = pop.Sum(po => po.Product.Price)
+             }).ToList();
 
        
             // var groupPO = purchaseOrders.PurchaseOrderProducts in _context.PurchaseOrders
             //     group purchaseOrders.PurchaseOrderProducts.Product by purchaseOrders.PurchaseOrderProduct.Product.Id
-            if (purchaseOrders == null)
+            if (vm.PurchaseOrder == null)
             {
                 return NotFound();
             }
 
-            return View(groupedProducts);
+            return View(vm);
         
     }
 
