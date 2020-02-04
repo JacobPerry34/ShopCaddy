@@ -162,7 +162,6 @@ namespace ShopCaddy.Controllers
 
         // POST: PurchaseOrderProducts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var purchaseOrderProduct = await _context.PurchaseOrderProducts.FindAsync(id);

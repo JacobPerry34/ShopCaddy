@@ -14,6 +14,15 @@ namespace ShopCaddy.Controllers
 {
     public class PurchaseOrdersController : Controller
     {
+        public class POPViewModel
+        {
+            public int Quantity { get; set; }
+            public Product Product { get; set; }
+            public PurchaseOrderProduct PurchaseOrderProduct {get;set;}
+            public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
+            public Vendor Vendor { get; set; }
+            public PurchaseOrder PurchaseOrder { get; set; }
+        }
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
@@ -64,19 +73,30 @@ namespace ShopCaddy.Controllers
                 return NotFound();
             }
 
+
             var purchaseOrders = await _context.PurchaseOrders
-                
                 .Include(p => p.PurchaseOrderProducts)
-                .ThenInclude(op =>op.Product)
-                .ThenInclude(p =>p.ProductType)
+                .ThenInclude(op => op.Product)
+                .ThenInclude(p => p.ProductType)
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            var groupedProducts = purchaseOrders.PurchaseOrderProducts.GroupBy(p => p.Product.Name)
+            .Select(pop => new POPViewModel        
+            {
+                 Product = pop.ToList()[0].Product,
+                 Quantity = pop.Count()
+             });
+
+       
+            // var groupPO = purchaseOrders.PurchaseOrderProducts in _context.PurchaseOrders
+            //     group purchaseOrders.PurchaseOrderProducts.Product by purchaseOrders.PurchaseOrderProduct.Product.Id
             if (purchaseOrders == null)
             {
                 return NotFound();
             }
 
-            return View(purchaseOrders);
+            return View(groupedProducts);
         
     }
 
@@ -136,6 +156,7 @@ namespace ShopCaddy.Controllers
                 {
                     var purchaseOrders = await _context.PurchaseOrders.FirstOrDefaultAsync(m => m.Id == id);
                     purchaseOrders.Received = true;
+                    purchaseOrders.DateReceived = DateTime.Now;
                     _context.Update(purchaseOrders);
                     await _context.SaveChangesAsync();
                 }
