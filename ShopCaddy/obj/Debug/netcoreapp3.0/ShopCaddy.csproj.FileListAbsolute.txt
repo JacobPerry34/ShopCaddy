@@ -163,3 +163,6 @@ C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3
 C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
+C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\Index.cshtml.g.cs
+C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml.g.cs
+C:\Users\newforce\workspace\cohort2\c#\ShopCaddy\ShopCaddy\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml.g.cs

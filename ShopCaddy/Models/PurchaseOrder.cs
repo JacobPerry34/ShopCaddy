@@ -13,11 +13,13 @@ namespace ShopCaddy.Models
         public int VendorId { get; set; }
         public bool Received { get; set; }
         [Display(Name = "Date Received")]
-        public DateTime DateReceived { get; set; }
+        public DateTime? DateReceived { get; set; }
         public Vendor Vendor { get; set; }
         public List<Product> Products { get; set; }
         public Product Product { get; set; }
         public string ApplicationUserId { get; set; }
+        public int PurchaseOrderProductId { get;set; }
+        public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
         public PurchaseOrderProduct PurchaseOrderProduct { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
