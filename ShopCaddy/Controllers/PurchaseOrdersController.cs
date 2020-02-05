@@ -18,6 +18,7 @@ namespace ShopCaddy.Controllers
         {
             public int Quantity { get; set; }
             public Product Product { get; set; }
+            public int PurchaseOrderProductId { get; set; }
             public PurchaseOrderProduct PurchaseOrderProduct {get;set;}
             public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
             public Vendor Vendor { get; set; }
@@ -88,7 +89,9 @@ namespace ShopCaddy.Controllers
             {
                 Product = pop.ToList()[0].Product,
                 Quantity = pop.Count(),
-                Price = pop.Sum(po => po.Product.Price)
+                Price = pop.Sum(po => po.Product.Price),
+                Vendor = pop.ToList()[0].PurchaseOrder.Vendor,
+                PurchaseOrderProductId = pop.ToList()[0].Id
              }).ToList();
 
        

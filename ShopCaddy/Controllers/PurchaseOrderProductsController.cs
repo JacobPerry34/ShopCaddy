@@ -78,7 +78,7 @@ namespace ShopCaddy.Controllers
                 
                 _context.Add(purchaseOrderProduct);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PurchaseOrdersController.Index));
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", purchaseOrderProduct.ProductId);
             ViewData["PurchaseOrderId"] = new SelectList(_context.PurchaseOrders, "Id", "Id", purchaseOrderProduct.PurchaseOrderId);
