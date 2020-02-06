@@ -57,7 +57,7 @@ namespace ShopCaddy.Controllers
         public async Task<IActionResult> CreateAsync(int id)
         {
             PurchaseOrderProduct purchaseOrderProduct = await _context.PurchaseOrderProducts.Include(pop=> pop.Product)
-                .FirstOrDefaultAsync(pop => pop.Product.Id == id);
+                .FirstOrDefaultAsync(pop => pop.ProductId == id);
             ViewData["PurchaseOrderId"] = new SelectList(_context.PurchaseOrders.Where(pop => pop.Received == false), "Id", "Name");
             return View(purchaseOrderProduct);
         }

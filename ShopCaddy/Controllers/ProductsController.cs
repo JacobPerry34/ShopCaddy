@@ -73,6 +73,7 @@ namespace ShopCaddy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProductTypeId,Name,Price,Image,Season,Quantity,SerialNumber,ApplicationUserId")] Product product)
         {
+            ModelState.Remove("Id");
             if (ModelState.IsValid)
             {
                 var user = await GetCurrentUserAsync();
