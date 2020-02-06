@@ -57,8 +57,12 @@ namespace ShopCaddy.Controllers
         }
 
         // GET: Products/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ApplicationUser user = await GetCurrentUserAsync();
+           // Product product = await _context.Products.Include(p => p.ProductType)
+                //.FirstOrDefaultAsync(p => p.ProductTypeId = product.ProductType.Id);
+            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes.Where(p => p.ApplicationUserId == user.Id), "Id", "Name");
             return View();
         }
 
@@ -75,8 +79,9 @@ namespace ShopCaddy.Controllers
                 product.ApplicationUserId = user.Id;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(ProductTypesController.Index));
+                return Redirect("/ProductTypes");
             }
+            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", product.ProductTypeId);
             return View(product);
         }
 
@@ -87,12 +92,13 @@ namespace ShopCaddy.Controllers
             {
                 return NotFound();
             }
-
+            ApplicationUser user = await GetCurrentUserAsync();
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
+            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes.Where(p => p.ApplicationUserId == user.Id), "Id", "Name");
             return View(product);
         }
 

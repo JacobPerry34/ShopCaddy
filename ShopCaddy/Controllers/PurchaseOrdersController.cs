@@ -109,9 +109,16 @@ namespace ShopCaddy.Controllers
     }
 
         // GET: PurchaseOrders/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id");
+           // CreatePurchaseOrderView vm = new CreatePurchaseOrderView();
+            ApplicationUser user = await GetCurrentUserAsync();
+            //vm.Vendors = _context.Vendors.Select(v => new SelectListItem
+            //{
+            //    Value = v.Id.ToString(),
+            //    Text = v.Contact
+            //}).ToList();
+            ViewData["VendorId"] = new SelectList(_context.Vendors.Where(p => p.ApplicationUserId == user.Id), "Id", "Contact");
             return View();
         }
 
@@ -141,13 +148,13 @@ namespace ShopCaddy.Controllers
             {
                 return NotFound();
             }
-
+            ApplicationUser user = await GetCurrentUserAsync();
             var purchaseOrder = await _context.PurchaseOrders.FindAsync(id);
             if (purchaseOrder == null)
             {
                 return NotFound();
             }
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id", purchaseOrder.VendorId);
+            ViewData["VendorId"] = new SelectList(_context.Vendors.Where(p => p.ApplicationUserId == user.Id), "Id", "Contact");
             return View(purchaseOrder);
         }
 
