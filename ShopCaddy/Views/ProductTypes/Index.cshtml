@@ -9,10 +9,10 @@
 <p>
     <a asp-action="Create" class="btn btn-danger">Create New</a>
 </p>
-<div>
+<div class="row flex-flow justify-content-md-center">
     @foreach (var item in Model)
     {
-        <div class="card" style="width: 18rem;">
+        <div class="card m-3" style="width: 18rem;">
             <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><a asp-controller="Products" asp-action="Index" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></h5>
