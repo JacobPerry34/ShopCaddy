@@ -47,10 +47,10 @@
 <div>
     @if(Model.Quantity < 5)
     {
-        <p>The Number of this Product is running Low. Would you like to make a Purchase Order?</p>
-        <a asp-controller="PurchaseOrderProducts" asp-action="Create" asp-route-id="@Model.Id"><button class="alert-danger">Create A Purchase Order</button></a>
+        <p>The Number of this Product is running Low. Would you like to add this Product to a Purchase Order?</p>
+        <a asp-controller="PurchaseOrderProducts" asp-action="Create" asp-route-id="@Model.Id"><button class="btn btn-danger">Add to a Purchase Order</button></a>
     }
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
 </div>

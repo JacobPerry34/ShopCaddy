@@ -119,6 +119,8 @@ namespace ShopCaddy.Controllers
             {
                 try
                 {
+                    ApplicationUser user = await GetCurrentUserAsync();
+                    product.ApplicationUserId = user.Id;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -133,7 +135,7 @@ namespace ShopCaddy.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect("/ProductTypes");
             }
             return View(product);
         }
