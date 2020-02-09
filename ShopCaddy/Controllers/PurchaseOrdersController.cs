@@ -54,30 +54,11 @@ namespace ShopCaddy.Controllers
         // GET: PurchaseOrders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            //var Model = _context.PurchaseOrders.Where(po => po.Id == id).FirstOrDefault();
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //DetailsPurchaseOrderViewModel vm = new DetailsPurchaseOrderViewModel()
-            //{
-            //    PurchaseOrderProduct = Model.PurchaseOrderProduct,
-            //    Vendor = Model.Vendor,
-            //    PurchaseOrderProducts = _context.PurchaseOrderProducts.Select(pop => new SelectListItem
-            //    {
-            //        Value = pop.Id.ToString(),
-            //        Text = pop.Product.Name
-            //    })
-
-            //}
-
-
             if (id == null)
             {
                 return NotFound();
             }
-
+            //Creating a new Instance of the Purchase Order Product View Model and pulling all the information needed
             POPViewModel vm = new POPViewModel();
              vm.PurchaseOrder = await _context.PurchaseOrders
                 .Include(p => p.PurchaseOrderProducts)
@@ -86,6 +67,8 @@ namespace ShopCaddy.Controllers
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+            //Grouping all the Purchase Order Products on the Products Details Page by name so they stack
+            //Increases quantity as well as totals the price of the grouped products
              vm.groupedProducts = vm.PurchaseOrder.PurchaseOrderProducts.GroupBy(p => p.Product.Name)
             .Select(pop => new POPViewModel
             {
@@ -96,9 +79,7 @@ namespace ShopCaddy.Controllers
                 PurchaseOrderProductId = pop.ToList()[0].Id
              }).ToList();
 
-       
-            // var groupPO = purchaseOrders.PurchaseOrderProducts in _context.PurchaseOrders
-            //     group purchaseOrders.PurchaseOrderProducts.Product by purchaseOrders.PurchaseOrderProduct.Product.Id
+      
             if (vm.PurchaseOrder == null)
             {
                 return NotFound();
@@ -111,13 +92,8 @@ namespace ShopCaddy.Controllers
         // GET: PurchaseOrders/Create
         public async Task<IActionResult> Create()
         {
-           // CreatePurchaseOrderView vm = new CreatePurchaseOrderView();
+           
             ApplicationUser user = await GetCurrentUserAsync();
-            //vm.Vendors = _context.Vendors.Select(v => new SelectListItem
-            //{
-            //    Value = v.Id.ToString(),
-            //    Text = v.Contact
-            //}).ToList();
             ViewData["VendorId"] = new SelectList(_context.Vendors.Where(p => p.ApplicationUserId == user.Id), "Id", "Contact");
             return View();
         }
@@ -169,6 +145,8 @@ namespace ShopCaddy.Controllers
             {
                 try
                 {
+                    //To Edit the bool in purchase orders for the Received button per purchase order
+                    //Also assigns a DateTime to the received purchase order
                     var purchaseOrders = await _context.PurchaseOrders.FirstOrDefaultAsync(m => m.Id == id);
                     purchaseOrders.Received = true;
                     purchaseOrders.DateReceived = DateTime.Now;
