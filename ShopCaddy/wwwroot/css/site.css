@@ -59,14 +59,30 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    /*margin-bottom: 60px;
+    background-image: url("https://cdn.hipwallpaper.com/i/5/99/762igU.jpg");*/
+    /* The image used */
+    background-image: url("https://cdn.hipwallpaper.com/i/5/99/762igU.jpg");
+    /* Set a specific height */
+    height: 500px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 15px; /* Vertically center the text there */
+}
+
+.col-sm-8 {
+    color: white;
 }
 

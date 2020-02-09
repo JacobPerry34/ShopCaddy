@@ -4,21 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Product Categories</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-danger">Create New</a>
 </p>
-<div>
+<div class="row flex-flow justify-content-md-center">
     @foreach (var item in Model)
     {
-        <div class="card" style="width: 18rem;">
+        <div class="card m-3" style="width: 18rem;">
             <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><a asp-controller="Products" asp-action="Index" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                 <p class="card-text">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </p>
             </div>
         </div>

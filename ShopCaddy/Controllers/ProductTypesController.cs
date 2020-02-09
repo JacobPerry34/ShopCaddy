@@ -110,6 +110,8 @@ namespace ShopCaddy.Controllers
             {
                 try
                 {
+                    ApplicationUser user = await GetCurrentUserAsync();
+                    productType.ApplicationUserId = user.Id;
                     _context.Update(productType);
                     await _context.SaveChangesAsync();
                 }
