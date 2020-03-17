@@ -15,7 +15,9 @@ document.querySelectorAll(".received-Button").forEach(editButton => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(editedPOFinal)
-        }).then(() => {window.location.reload(true)})
+        }).then(() => { window.location.reload(true) })
+
+        //Another Fetch call to Edit the product quantity when the received button is clicked.
 
     })
 })

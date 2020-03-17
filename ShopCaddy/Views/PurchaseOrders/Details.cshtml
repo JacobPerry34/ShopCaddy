@@ -6,7 +6,7 @@
 
 <h1></h1>
 
-<div>
+<div class="table table-dark text-center">
     <h4>@Html.DisplayFor(model => model.PurchaseOrder.Name)</h4>
 </div>
 <dl class="table-dark">
@@ -50,7 +50,7 @@
 
             <tr>
                 @*<th scope="row"></th>*@
-                <td class="col-sm-8"> <img src="@Html.DisplayFor(model => purchaseOrderProduct.Product.Image)" class="card-img h-25 w-25 pr-0 " /></td>
+                <td class="col-sm-8"> <img src="@Html.DisplayFor(model => purchaseOrderProduct.Product.Image)" class="card-img h-25 w-auto" /></td>
                 <td class="col-sm-8">@Html.DisplayFor(model => purchaseOrderProduct.Product.Name)</td>
 
                 <td class="col-sm-8">@Html.DisplayFor(model => purchaseOrderProduct.Quantity)</td>
