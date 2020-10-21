@@ -36,7 +36,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td ><button class="received-Button btn btn-danger" id="@item.Id" >
+            <td ><button asp-controller="Products" asp-action="IncreaseProductQuantity" class="received-Button btn btn-danger" id="@item.Id" >
              @Html.DisplayFor(modelItem => item.Received)
                 </button>
             </td>
