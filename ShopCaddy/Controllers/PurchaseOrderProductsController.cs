@@ -75,6 +75,7 @@ namespace ShopCaddy.Controllers
                 purchaseOrderProduct.ApplicationUserId = user.Id;
                 purchaseOrderProduct.ProductId = purchaseOrderProduct.Id;
                 purchaseOrderProduct.Id = 0;
+               
                 
                 _context.Add(purchaseOrderProduct);
                 await _context.SaveChangesAsync();

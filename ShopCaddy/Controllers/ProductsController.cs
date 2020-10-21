@@ -140,6 +140,85 @@ namespace ShopCaddy.Controllers
             return View(product);
         }
 
+        // Method for changing the Quantity of multiple Products
+        public async Task<IActionResult> IncreaseProductQuantity(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                //try
+               // {
+                    PurchaseOrder purchaseOrder = new PurchaseOrder();
+                purchaseOrder = await _context.PurchaseOrders
+                    .Include(po => po.PurchaseOrderProducts)
+                    .ThenInclude(pop => pop.Product)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
+
+                    PurchaseOrderProduct purchaseOrderProduct = new PurchaseOrderProduct();
+                //Conditional to select a product where purchaseOrderId == id
+                    List<Product> products = new List<Product>();
+                   // if (purchaseOrder.PurchaseOrderProduct.PurchaseOrderId == id)
+                   // {
+                        //Define the List of Products from the beginning
+
+                        products = purchaseOrder.PurchaseOrderProducts.Select(p => p.Product).ToList();
+                if (purchaseOrder.Received == true)
+                {
+                    ApplicationUser user = await GetCurrentUserAsync();
+                    //var countProductsGrouped = purchaseOrder.PurchaseOrderProducts.GroupBy(pop => pop.Product.Name).Count();
+                    //Very Close. This is were I need to Update the products with the count of the certain POP
+                    //var product = purchaseOrder.PurchaseOrderProducts.Select(pop => pop.Product);
+                    //if (countProductsGrouped <= 1) { }
+                    // Maybe try foreach groupedproduct in POPViewModel?
+                    // This i wrong.. Maybe foreach product in groupedProducts
+                    //var productsGrouped = purchaseOrder.PurchaseOrderProducts.GroupBy(pop => pop.Product.Name);
+                    //purchaseOrder.PurchaseOrderProduct.QuantityOrdered = countProductsGrouped;
+                    foreach (Product product in purchaseOrder.PurchaseOrderProducts.Select(pop => pop.Product))
+                        {
+                        if (purchaseOrder.PurchaseOrderProducts.GroupBy(pop => pop.Product.Name).Any(pop => pop.Count() < 2)){
+                            var numberOfProductsGrouped = purchaseOrder.PurchaseOrderProducts.Count();
+                            //purchaseOrder.PurchaseOrderProduct.QuantityOrdered = numberOfProductsGrouped;
+                            product.Quantity = product.Quantity + numberOfProductsGrouped;
+                            ;
+                            products.Select(p => p.ApplicationUserId = user.Id);
+                            _context.Update(product);
+                            await _context.SaveChangesAsync();
+                        }
+                        else if(purchaseOrder.PurchaseOrderProducts.GroupBy(pop => pop.Product.Name).Any(pop => pop.Count() > 1))
+                        {
+                            var numberOfProductsGrouped = purchaseOrder.PurchaseOrderProducts.GroupBy(pop => pop.Product.Id).Count();
+                            //purchaseOrder.PurchaseOrderProduct.QuantityOrdered = numberOfProductsGrouped;
+                            product.Quantity = product.Quantity + numberOfProductsGrouped;
+                            ;
+                            products.Select(p => p.ApplicationUserId = user.Id);
+                            _context.Update(product);
+                            await _context.SaveChangesAsync();
+
+                        }
+                     };
+                    //product = product.Quantity + purchaseOrder.PurchaseOrderProducts.Select(pop => pop.Product).Count();
+                    //products.Select(p => p.Quantity = p.Quantity + purchaseOrder.PurchaseOrderProducts.Count());
+                  //  ApplicationUser user = await GetCurrentUserAsync();
+                  //  products.Select(p => p.ApplicationUserId = user.Id);
+                   // _context.Update(product);
+                   // await _context.SaveChangesAsync();
+                }
+                else { }
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!ProductExists(id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                return View(products);
+            }
+            return View(id);
+        }
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

@@ -163,8 +163,10 @@ namespace ShopCaddy.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+                };
+
+                
+                return RedirectToAction("IncreaseProductQuantity","Products", new {id});
             }
             return View(id);
         }

@@ -20,7 +20,7 @@ namespace ShopCaddy.Models
         public string ApplicationUserId { get; set; }
         public ProductType ProductType { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-
+        
         
 
     }

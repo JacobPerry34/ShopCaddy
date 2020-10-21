@@ -35,8 +35,8 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Image)" class="card-img h-25 w-25" alt="Photo Did not Load" />
+            <td class="h-25 w-25">
+                <img src="@Html.DisplayFor(modelItem => item.Image)" class="img-thumbnail" alt="Photo Did not Load" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -53,7 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SerialNumber)
             </td>
-            <td>
+            <td class="w-10">
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-danger">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
