@@ -5,44 +5,39 @@
 }
 
 <h1 class="table table-dark text-center">@Html.DisplayFor(model=> model.Name)</h1>
-
-<div class="table table-dark">
-    <hr />
-    <dl class="col"
-        <dd class="col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Image)" class="product-details-image" alt="Photo Did not Load" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
+<div class="row flex-flow justify-content-md-center">
+    <div class="table-dark text-center w-50">
+        <div class="">
+            <img src="@Html.DisplayFor(model => model.Image)" class=" h-25 w-25" alt="Photo Did not Load" />
+        </div>
+        </hr>
+        <div class="text-center"
+        <div style="font:bold; color: navajowhite;"class="text-center">
             @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
+        </div>
+        <div class="text-center ">
             @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
+        </div>
+        <div class="text-center">
             @Html.DisplayNameFor(model => model.Season)
-        </dt>
-        <dd class="col-sm-10">
+        </div>
+        <div class="text-center">
             @Html.DisplayFor(model => model.Season)
-        </dd>
-        <dt class="col-sm-2">
+        </div>
+        <div ivclass="text-center">
             @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class="col-sm-10">
+        </div>
+        <div class="text-center">
             @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class="col-sm-2">
+        </div>
+        <div class="text-center">
             @Html.DisplayNameFor(model => model.SerialNumber)
-        </dt>
-        <dd class="col-sm-10">
+        </div>
+        <div class="text-center">
             @Html.DisplayFor(model => model.SerialNumber)
-        </dd>
-    </dl>
+        </div>
+    </div>
+    </div>
 </div>
 <div class="table table-dark">
     @if(Model.Quantity < 5)
