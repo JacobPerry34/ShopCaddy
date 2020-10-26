@@ -3,10 +3,13 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1 class="table table-dark text-center">@Html.DisplayFor(model=> model.Name)</h1>
+    <div class="row flex-flow justify-content-md-center">
+        <h1 style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); 
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);"class="table-dark w-50 row flex-flow justify-content-md-center">@Html.DisplayFor(model => model.Name)</h1>
+    </div>
 <div class="row flex-flow justify-content-md-center">
-    <div class="table-dark text-center w-50">
+    <div style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); 
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);"class="table-dark text-center w-50 p-3">
         <div class="">
             <img src="@Html.DisplayFor(model => model.Image)" class=" h-25 w-25" alt="Photo Did not Load" />
         </div>
@@ -18,34 +21,38 @@
         <div class="text-center ">
             @Html.DisplayFor(model => model.Price)
         </div>
-        <div class="text-center">
+        <div style="font:bold; color: navajowhite;"class="text-center">
             @Html.DisplayNameFor(model => model.Season)
         </div>
         <div class="text-center">
             @Html.DisplayFor(model => model.Season)
         </div>
-        <div ivclass="text-center">
+        <div style="font:bold; color: navajowhite;"class="text-center">
             @Html.DisplayNameFor(model => model.Quantity)
         </div>
         <div class="text-center">
             @Html.DisplayFor(model => model.Quantity)
         </div>
-        <div class="text-center">
+        <div style="font:bold; color: navajowhite;"class="text-center">
             @Html.DisplayNameFor(model => model.SerialNumber)
         </div>
         <div class="text-center">
             @Html.DisplayFor(model => model.SerialNumber)
         </div>
-    </div>
-    </div>
-</div>
-<div class="table table-dark">
+        <div class="table table-dark">
     @if(Model.Quantity < 5)
     {
-        <p>The Number of this Product is running Low. Would you like to add this Product to a Purchase Order?</p>
-        <a asp-controller="PurchaseOrderProducts" asp-action="Create" asp-route-id="@Model.Id"><button class="btn btn-danger">Add to a Purchase Order</button></a>
+        <p style="font:bold; color: navajowhite;border:thin; border-color: red #dc3545 ;">The Number of this Product is running low. Would you like to add this Product to a Purchase Order?</p>
+        <a asp-controller="PurchaseOrderProducts" asp-action="Create" asp-route-id="@Model.Id"><button style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); 
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);"class="btn btn-danger">Add to a Purchase Order</button></a>
     }
 </div>
-<div class="table table-dark">
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
+        <div class="">
+    <a asp-action="Edit" asp-route-id="@Model.Id" style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); 
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);" class="btn btn-danger">Edit</a>
 </div>
+    </div>
+    </div>
+</div>
+
+
