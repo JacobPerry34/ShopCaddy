@@ -6,9 +6,12 @@
 
 
 <p>
-    <a asp-action="Create" asp-route-id="@Model." class="btn btn-danger" >Create New</a>
+    <a style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);"asp-action="Create" asp-route-id="@Model." class="btn btn-danger" >Create New</a>
 </p>
-<table class="table table-dark">
+<table style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); border: 1px hidden #1C6EA4;
+border-radius: 5px;"class="table table-dark">
     <thead>
         <tr>
             <th>
@@ -54,9 +57,12 @@
                 @Html.DisplayFor(modelItem => item.SerialNumber)
             </td>
             <td class="w-10">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-danger">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                <a style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger">Edit</a> |
+                <a style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);"asp-action="Details" asp-route-id="@item.Id" class="btn btn-danger">Details</a> |
+                <a style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
