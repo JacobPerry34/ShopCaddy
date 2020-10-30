@@ -4,42 +4,45 @@
     ViewData["Title"] = "Details";
 }
 <div class="row flex-flow justify-content-md-center">
-<h2 style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+    <h2 style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
 box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); border: 1px hidden #1C6EA4;
-border-radius: 5px;" class="table-dark w-50 row flex-flow justify-content-md-center">Vendor Details</h2>
+border-radius: 5px;" class="table-dark w-50 row flex-flow justify-content-md-center">
+        Vendor Details
+    </h2>
 </div>
 <div class="row flex-flow justify-content-md-center">
-    <div class="col-md-4 table-dark w-50 row flex-flow justify-content-md-center" style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+    <div class="col-md-4 table-dark w-50 row flex-flow justify-content-md-center m-5" style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
 box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); border: 1px hidden #1C6EA4;
 border-radius: 5px;">
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Contact)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Contact)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-        </div>
+        <hr />
+        <dl class="col">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Contact)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Contact)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id"  style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+<div class="row flex-flow justify-content-md-center">
+    <a asp-action="Edit" asp-route-id="@Model.Id" style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
 box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); border: 1px hidden #1C6EA4;
 border-radius: 5px;" class="btn btn-danger">Edit</a> |
-    <a asp-action="Index"  style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
+    <a asp-action="Index" style="-webkit-box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63);
 box-shadow: 0px 10px 13px -7px #000000, -10px 5px 19px 5px rgba(0,0,0,0.63); border: 1px hidden #1C6EA4;
 border-radius: 5px;" class="btn btn-danger">Back to List</a>
 </div>
+
